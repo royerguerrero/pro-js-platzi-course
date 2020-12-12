@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call, Apply & Bind</title>
+    <link rel="stylesheet" href="../assets/index.css">
+</head>
+<body>
+    <h1>Metodos call, apply y bind</h1>
+    <ul>
+        <li><button class="call-to-action">Aprender</button></li>
+        <li><button class="call-to-action">Aprender Más</button></li>
+        <li><button class="call-to-action">¡Nunca parar de Aprender!</button></li>
+    </ul>
+    <script>
+        // Establece this usando call
+        function saludar() {
+            console.log(`Hola soy ${this.firstName} ${this.lastName}`)
+        }
+
+        const royer = {
+            firstName: 'Royer',
+            lastName: 'Guerrero Pinilla.'
+        }
+
+        saludar.call(royer)
+
+        function caminar(metros, direccion) {
+            console.log(`${this.firstName} camina ${metros} metros hacia ${direccion}`)
+        }
+
+        caminar.call(royer, 400, 'norte')
+        // Establece this udando apply
+        caminar.apply(royer, [650, 'sur'])
+
+        // Establece this usando bind
+        const maria = {
+            firstName: 'Maria',
+            lastName: 'Pinilla Forero.'
+        }
+
+        const mariaSaluda = saludar.bind(maria)
+        mariaSaluda()
+        
+        // Usando currring 
+        const mariaCamina = caminar.bind(maria, 2000)
+        mariaCamina('oeste')
+
+        // Uso con el dom
+        const buttons = document.getElementsByClassName('call-to-action')
+        // buttons.forEach(button => {
+        //    button.onclick = () => alert('Nunca pares de aprender!')
+        // })
+        Array.prototype.forEach.call(buttons, button => {
+            button.onclick = () => alert('Nunca pares de aprender!')
+        })
+    </script>
+</body>
+</html>
